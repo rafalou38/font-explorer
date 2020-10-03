@@ -1,0 +1,547 @@
+#:import Clipboard kivy.core.clipboard.Clipboard
+#:import clipboard clipboard
+#:import toast kivymd.toast
+#:import pprint pprint.pprint
+#:import fonts_path kivymd.fonts_path
+
+<CustomDropDown>:
+	Button:
+		text: 'My first Item'
+		size_hint_y: None
+		height: 44
+		on_release: root.select('item1')
+	Label:
+		text: 'Unselectable item'
+		size_hint_y: None
+		height: 44
+	Button:
+		text: 'My second Item'
+		size_hint_y: None
+		height: 44
+		on_release: root.select('item2')
+<TooltipLabel@MDLabel+MDTooltip>
+<icon>:
+	orientation: "vertical"
+#	size_hint: None,None
+	width:50
+	height:50
+
+	canvas.after:
+		Color:
+			rgba: root.mcolor
+		Rectangle:
+			pos: self.pos
+			size: self.size
+	MDIcon:
+		text: root.uicon
+		font_name: root.gfontFile
+		halign: "center"
+#		size_hint: None,None
+		font_size: 40
+#		size: self.texture_size
+	BoxLayout:
+		MDLabel:
+			text: root.iconName
+		MDLabel:
+			halign: "right"
+			text: str(root.iconId)
+<bicon>:
+	text: root.uicon
+#	font_name: root.gfontFile
+	halign: "center"
+	size_hint: (None,None)
+	color: [0,0,0,1]
+	font_size: 40
+#	width: 10
+	background_color: 0,0,0,0
+	background_normal: ""
+	on_enter: root._on_enter(self)
+
+	on_leave: root._on_leave(self)
+
+	on_press: root._on_press(self)
+
+#	canvas:
+#		Color:
+#			rgba: 1,0,1,0.2
+#		Rectangle:
+#			pos: self.pos
+#			size: self.size
+
+<jicon>:
+#	text: root.uicon
+#	font_name: root.gfontFile
+	halign: "center"
+#	size_hint: (None,None)
+#	color: [0,0,0,1]
+#	font_size: 40
+#	on_enter: print(root.iconName)
+
+#class icon(MDCard):
+#	uicon = StringProperty()
+#	gfontFile = StringProperty()
+#
+#	iconName = StringProperty()
+#	iconId = NumericProperty()
+#{
+#	"viewclass": "MDIcon",
+#	"text": chr(glyphs[glyph]),
+#	"font_name": file,
+#	"halign": "center",
+#	"size_hint": (None,None)
+#}
+<historty_label>:
+	height: self.texture_size[1] +8
+	font_style:"Subtitle1"
+	on_press:app.openfont(self.text)
+<DropZone>:
+	orientation: "vertical"
+	size_hint:(1,1)
+	canvas:
+		Color:
+			rgba: root.color
+		Line:
+			width: 1
+			dash_length: 10
+			dash_offset: 5
+			rounded_rectangle:
+				(self.pos[0]+root.offset/2, self.pos[1]+root.offset/2, self.size[0]-root.offset, self.size[1]-root.offset,\
+				5, 5, 5, 5,\
+				self.size[1]-root.offset)
+	AnchorLayout:
+		id:anclayout
+		size_hint: 1,1
+		anchor_x:"center"
+		anchor_y:"center"
+
+#		canvas:
+#			Color:
+#				rgba: 0,1,1,0.2
+#			Rectangle:
+#				pos: self.pos
+#				size: self.size
+		BoxLayout:
+#			BoxLayout:
+			size_hint: None,0.5
+			width: 400
+			pos_hint: None,None
+#			canvas:
+#				Color:
+#					rgba: 1,0,1,0.2
+#				Rectangle:
+#					pos: self.pos
+#					size: self.size
+			orientation: "vertical"
+			MDLabel:
+				id:startlabel
+				halign: "center"
+				font_style:"H5"
+				size_hint:(1,None)
+				height: self.texture_size[1] +10
+				text: "Start by droping a font on the app"
+				orientation: "vertical"
+			MDTextButton:
+				size_hint:(1,None)
+				height: self.texture_size[1]+10
+				halign: "center"
+				font_style:"Subtitle1"
+				text: "or press here"
+				on_press: app.manualSelect()
+			BoxLayout:
+				orientation: "vertical"
+				id: historybo
+				MDLabel:
+					size_hint:(1,None)
+					font_style:"Subtitle1"
+					valign: "top"
+					height: self.texture_size[1]+10
+					text: " "
+					id: dontremove1
+				MDLabel:
+					size_hint:(1,None)
+					font_style:"Subtitle1"
+					height: self.texture_size[1] +10
+					text: "Recent Fonts:"
+					id: dontremove2
+				BoxLayout:
+					orientation: "vertical"
+					id: historybox
+#				MDTextButton:
+#	#				size_hint:(1,0)
+#	#				halign: "center"
+#					height: self.texture_size[1] +8
+#					font_style:"Subtitle1"
+#					text: "HACK REGULAR NERD FONT COMPLETE MONO WINDOWS COMPATIBLE.TTF"
+#				MDTextButton:
+#	#				size_hint:(1,0)
+#	#				halign: "center"
+#					height: self.texture_size[1] +8
+#					font_style:"Subtitle1"
+#					text: "Font Awesome 5 Free-Solid-900.otf"
+#				Widget:
+
+##		size_hint:(1,0)
+#		# width: self.textureSize
+#		BoxLayout:
+#			Widget:
+#				size_hint:(0.5,None)
+#			BoxLayout:
+#				size_hint:(0.5,None)
+#				orientation: "vertical"
+#	#			size_hint:0.5,1
+#				canvas:
+#					Color:
+#						rgba: 0,0,1,0.2
+#					Rectangle:
+#						pos: self.pos
+#						size: self.size
+#				MDTextButton:
+#	#				size_hint:(1,0)
+#	#				halign: "center"
+#					font_style:"Subtitle1"
+#					text: "materialdesignicons-webfont.ttf"
+#				MDTextButton:
+#	#				size_hint:(1,0)
+#	#				halign: "center"
+#					font_style:"Subtitle1"
+#					text: "HACK REGULAR NERD FONT COMPLETE MONO WINDOWS COMPATIBLE.TTF"
+#				MDTextButton:
+#	#				size_hint:(1,0)
+#	#				halign: "center"
+#					font_style:"Subtitle1"
+#					text: "Font Awesome 5 Free-Solid-900.otf"
+
+<FontExplorer>:
+#	BoxLayout:
+#		orientation: "vertical"
+#		size_hint_x:.3
+#		size_hint_max_x:200
+#		padding: 10
+#		canvas:
+#			Color:
+#				rgba: 0,0,0,.1
+#			Rectangle:
+#				pos: self.pos
+#				size: self.size
+#		MDIcon:
+#			id: previewIcon
+#			halign: 'center'
+#			font_size: '100dp'
+#			size_hint_y:None
+#			height: self.texture_size[1]
+#
+#			text: chr(983041)
+#			canvas:
+#				Color:
+#					rgba: 0,0,0,.5
+#				Line:
+#					width:3
+#					points: self.pos[0], self.pos[0]+self.width
+#		MDLabel:
+#			id: iconName
+#			text: "star"
+#			font_style: "H5"
+#			font_blended: "bold"
+#			size_hint_y:None
+#			height: self.texture_size[1]
+#			halign: "center"
+#		MDFlatButton:
+#			id: unicodeid
+#			size: btncontainer.size
+#			text: "983041"
+#			on_press:
+#				Clipboard.copy(self.text)
+#				toast.toast('clipboard: '+ self.text)
+#			canvas.before:
+#				Color:
+#					rgba: 0,0,0,0.8
+#				Line:
+#					width: 1
+#					rectangle:(self.pos[0], self.pos[1], self.size[0], self.size[1])
+#		BoxLayout:
+#			id: btncontainer
+#			size_hint:1,None
+#			height: "30dp"
+#			MDFlatButton:
+#				id: unicode
+#				size: btncontainer.size[0]/2,btncontainer.size[1]
+#				text: "F4A5"
+#				on_press:
+#					Clipboard.copy(self.text)
+#					toast.toast('clipboard: '+ self.text)
+#				canvas.before:
+#					Color:
+#						rgba: 0,0,0,0.8
+#					Line:
+#						width: 1
+#						rectangle:(self.pos[0], self.pos[1], self.size[0], self.size[1])
+#			MDFlatButton:
+#				id: chra
+#				text: chr(983041)
+#				size: btncontainer.size[0]/2,btncontainer.size[1]
+#				size_hint_max: btncontainer.size[0]/2,btncontainer.size[1]
+#				font_name: "D:/r/kode/font explorer/kivymd/fonts/materialdesignicons-webfont.ttf"
+#				on_press:
+#					Clipboard.copy(self.text)
+#					toast.toast('clipboard: '+ self.text)
+#				canvas.before:
+#					Color:
+#						rgba: 0,0,0,0.8
+#					Line:
+#						width: 1
+#						rectangle:(self.pos[0], self.pos[1], self.size[0], self.size[1])
+#		BoxLayout:
+#			size_hint:1,None
+#			height: "30dp"
+#			TextInput:
+#				size_hint_y: None
+#				height: "30dp"
+#				background_normal: ""
+#				input_type: "number"
+#				text: "64"
+#				canvas.after:
+#					Color:
+#						rgba: 0,0,0,0.8
+#					Line:
+#						width: 1
+#						rectangle:(self.pos[0], self.pos[1], self.size[0], self.size[1])
+#			MDFlatButton:
+#				text: chr(983514)
+#				size: btncontainer.size[0]/4,btncontainer.size[1]
+#				font_name: "D:/r/kode/font explorer/kivymd/fonts/materialdesignicons-webfont.ttf"
+#				canvas.before:
+#					Color:
+#						rgba: 0,0,0,0.8
+#					Line:
+#						width: 1
+#						rectangle:(self.pos[0], self.pos[1], self.size[0], self.size[1])
+#
+#
+#
+#		Widget:
+	MDBoxLayout:
+		orientation: "vertical"
+		size_hint_x: None
+		width: testzone.width + self.padding[0] * 2
+		padding: "12dp"
+		md_bg_color: 0, 0, 0, .1
+		MDIcon:
+			id: previewIcon
+			halign: 'center'
+			font_size: '100dp'
+			size_hint_y:None
+			height: self.texture_size[1]
+		MDLabel:
+			id: iconName
+			text: "star"
+			font_style: "H5"
+			font_blended: "bold"
+			size_hint_y:None
+			height: self.texture_size[1]
+			halign: "center"
+			padding: 0,10
+		MDBoxLayout:
+			size_hint_x: 1
+			size_hint_y: None
+			height: "30dp"
+			MDRectangleFlatButton:
+				id: unicode
+				size_hint_x: 0.5
+				text_color: 0, 0, 0, 1
+				text: "1"
+				on_press:
+					clipboard.copy(self.text)
+					toast.toast('clipboard: '+ self.text)
+				canvas.before:
+					Color:
+						rgba:
+							app.line_color
+					Line:
+						width: 1
+						rectangle: (self.x, self.y, self.width, self.height)
+			MDRectangleFlatButton:
+				id: chra
+				size_hint_x: 0.5
+				text_color: 0, 0, 0, 1
+				text: ""
+				on_press:
+					clipboard.copy(self.text)
+					toast.toast('clipboard: '+ self.text)
+				canvas.before:
+					Color:
+						rgba:
+							app.line_color
+					Line:
+						width: 1
+						rectangle: (self.x, self.y, self.width, self.height)
+		MDRectangleFlatButton:
+			id: unicodeid
+			size_hint_x: 1
+			size_hint_y: None
+			text_color: 0, 0, 0, 1
+			text: "resize the window and Press me"
+			on_press:
+				clipboard.copy(self.text)
+				toast.toast('clipboard: '+ self.text)
+			canvas.before:
+				Color:
+					rgba:
+						app.line_color
+				Line:
+					width: 1
+					rectangle: (self.x, self.y, self.width, self.height)
+#		MDRectangleFlatButton:
+#			id: reference
+#			text: "resize the window and Press me"
+#			opacity: 0
+		BoxLayout:
+			size_hint:1,None
+			height: "30dp"
+			TextInput:
+				id: downloadsize
+				text: "256"
+				size_hint: 0.7, 1
+				height: "30dp"
+				background_normal: ""
+				background_active: ""
+				canvas.after:
+					Color:
+						rgba: app.line_color
+					Line:
+						width: 1
+						rectangle:(self.pos[0], self.pos[1], self.size[0], self.size[1])
+			MDRectangleFlatButton:
+				text_color: 0, 0, 0, 1
+				text: chr(983514)
+				font_size: 25
+				size_hint: 0.2, 1
+				font_name: fonts_path + "materialdesignicons-webfont.ttf"
+				on_press: root.download()
+				canvas.before:
+					Color:
+						rgba:
+							app.line_color
+					Line:
+						width: 1
+						rectangle: (self.x, self.y, self.width, self.height)
+
+		TextInput:
+			id: testzone
+			text: "Almost before we knew it, we had left the ground. \n 0123456789 \n !?;:, \n +-*/ \n {[(|)]}"
+			font_size: 20
+			size_hint: None, 1
+			width: 200
+			background_normal: ""
+			background_active: ""
+			canvas.after:
+				Color:
+					rgba: app.line_color
+				Line:
+					width: 1
+					rectangle:(self.pos[0], self.pos[1], self.size[0], self.size[1])
+
+
+
+	BoxLayout:
+		orientation: "vertical"
+		AnchorLayout:
+			anchor_y: "center"
+			anchor_x: "right"
+			size_hint:1,None
+			height: searchicon.height+10
+			padding: 5,5,5,5
+			canvas:
+				Color:
+					rgba: 0,0,0,.1
+				Rectangle:
+					pos: self.pos
+					size: self.size
+			BoxLayout:
+#				canvas:
+#					Color:
+#						rgba: 0,0,0,.1
+#					Rectangle:
+#						pos: self.pos
+#						size: self.size
+				height: searchicon.height
+				TooltipLabel:
+					id: sfontname
+					font_style:"H5"
+					text: "Roboto Black"
+					tooltip_text: ""
+					tooltip_bg_color: 0.9,0.9,0.9,1
+					tooltip_text_color: 0,0,0,1
+				MDTextField:
+					size_hint_x: 0.4
+					size_hint_max_x: 245
+					size_hint_y: None
+					id: searchbox
+					hint_text: "search"
+	#				mode: "rectangle"
+#					keyboard_on_key_down: root.search()
+					on_text_validate: root.search(self.text)
+				MDIconButton:
+					id:searchicon
+	#				size_hint: None,1
+	#				size: self.texture_size
+					icon:"magnify"
+					on_press: root.search(self.text)
+		RecycleView:
+#			size_hint_x:.7
+			id: rv
+			key_viewclass: 'viewclass'
+			key_size: 'height'
+			scroll_type: ['bars']
+			bar_width: 5
+			bar_color: 0,0,0,1
+			scroll_timeout: 500
+
+
+	#			viewclass: 'MDIcon'
+
+	#		canvas:
+	#			Color:
+	#				rgba: 0,0,1,1
+	#			Rectangle:
+	#				pos: self.pos
+	#				size: self.size
+			RecycleGridLayout:
+				id: rgl
+				cols: 10
+				default_size: None, dp(50)
+				default_size_hint: 1, None
+				size_hint_y: None
+				height: self.minimum_height
+				spacing: 0
+				orientation: 'vertical'
+#				on_children:root.chexk_size()
+#			spacing: 5
+#	MDIcon:
+#		text:chr(165)
+#		font_name: "D:/r/kode/font explorer/HACK REGULAR NERD FONT COMPLETE MONO WINDOWS COMPATIBLE.TTF"
+#		halign: "center"
+#	MDIcon:
+#		text:"\ufc4e"
+#		font_name: "D:/r/kode/font explorer/HACK REGULAR NERD FONT COMPLETE MONO WINDOWS COMPATIBLE.TTF"
+#		halign: "center"
+
+# BoxLayout:
+BoxLayout:
+	orientation: "vertical"
+	MDToolbar:
+		left_action_items: [["open-in-app", app.openNewFont]]
+		title: "FontExplorer"
+
+	ScreenManager:
+		id: scrennm
+		Screen:
+			name: "dropzone"
+			DropZone:
+				id: dropzone
+				offset: 25
+		Screen:
+			name: "fontexplorer"
+			FontExplorer:
+				id: fontexplorer
+
+	# FontExplorer:
